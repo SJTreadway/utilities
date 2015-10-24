@@ -16,6 +16,16 @@ var _ = { };
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
+    var arr = [];
+
+    for (var i = 0; i < array.length; i++) {
+      if (n === undefined) {
+        return array[i];
+      } else if (i < n && n !== undefined) {
+        arr.push(array[i]);
+      }
+    }
+    return arr;
   };
 
   // Like first, but for the last elements. If n is undefined, return just the
@@ -31,10 +41,24 @@ var _ = { };
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
   _.indexOf = function(array, target){
+
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] === target) {
+        return i;
+      } else if (array.has("target") === false) {
+        return -1;
+      }
+    }
+
   };
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, iterator) {
+    for (var i = 0; i < collection.length; i++) {
+      if (iterator) {
+        return collection[i];
+      }
+    }
   };
 
   // Return all elements of an array that don't pass a truth test.
@@ -107,6 +131,11 @@ var _ = { };
   // Return a function that can be called at most one time. Subsequent calls
   // should return the previously returned value.
   _.once = function(func) {
+    var y = false;
+    return function() {
+      y = true;
+      return func();
+    }
   };
 
   // Memoize an expensive function by storing its results. You may assume
