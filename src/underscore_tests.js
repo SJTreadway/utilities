@@ -55,24 +55,23 @@ var _ = { };
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
   _.indexOf = function(array, target){
-
-    for (var i = 0; i < array.length; i++) {
-      if (array[i] === target) {
-        return i;
-      } else if (array.has("target") === false) {
-        return -1;
+      for (var i = 0; i < array.length; i++) {
+        return array.indexOf(target);
       }
-    }
-
   };
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, iterator) {
+    var even = [];
+    var odd = [];
     for (var i = 0; i < collection.length; i++) {
-      if (iterator) {
-        return collection[i];
+      if (collection[i] % iterator === 0 && iterator % 2 === 0 && iterator !== 0) {
+        even.push(collection[i]);
+      } else if(collection[i] % iterator === 0 && iterator % 3 === 0 && iterator !== 0) {
+        odd.push(collection[i]);
       }
     }
+    return [even, odd];
   };
 
   // Return all elements of an array that don't pass a truth test.
@@ -92,6 +91,15 @@ var _ = { };
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
   _.pluck = function(array, propertyName) {
+    var arr3 = [];
+
+    for (var i in array) {
+      if ([i] === propertyName) {
+        arr3.push(array[i]);
+        i++;
+      }
+    }
+    return arr3;
   };
 
   // Calls the method named by methodName on each value in the list.
@@ -168,6 +176,7 @@ var _ = { };
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+      
   };
 
 
