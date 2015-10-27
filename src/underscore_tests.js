@@ -80,6 +80,7 @@ var _ = { };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+
   };
 
 
@@ -92,15 +93,19 @@ var _ = { };
   // an array of just their ages
   _.pluck = function(array, propertyName) {
     var arr3 = [];
-
+    var arrObj;
     for (var i in array) {
-      if ([i] === propertyName) {
-        arr3.push(array[i]);
-        i++;
+        arrObj = array[i];
+        for(var j in arrObj) {
+            console.log(j);
+      if (j === propertyName) {
+           console.log(arrObj[j]);
+        arr3.push(arrObj[j]);
       }
+      i++;
     }
-    return arr3;
-  };
+  }  return arr3;
+}
 
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName, args) {
