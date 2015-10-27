@@ -49,14 +49,24 @@ var _ = { };
 
   // Call iterator(value, key, collection) for each element of collection.
   // Accepts both arrays and objects.
-  _.each = function(collection, iterator) {
+  _.each = function (collection, iterator) {
+    var newArr = [];
+    var val;
+    var dex;
+    for(var i in collection) {
+      val = collection[i];
+      dex = i;
+      newArr.push(iterator(val, dex, collection));
+      i++;
+    }
+     return newArr;
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
   _.indexOf = function(array, target){
       for (var i = 0; i < array.length; i++) {
-        return array.indexOf(target);
+          return array.indexOf(target);
       }
   };
 
@@ -119,11 +129,20 @@ var _ = { };
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
-  };
+    for (var i in collection) {
+        console.log(collection[i]);
+      if (collection[i] === target) {
+        return true;
+       }
+       i++;
+       }
+       return false;
+    }
 
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
+
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
@@ -181,8 +200,10 @@ var _ = { };
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-      
-  };
+      return function() {
+        setTimeout(func(), wait, a, b);
+      }
+    };
 
 
 
