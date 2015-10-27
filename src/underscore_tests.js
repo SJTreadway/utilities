@@ -51,12 +51,8 @@ var _ = { };
   // Accepts both arrays and objects.
   _.each = function (collection, iterator) {
     var newArr = [];
-    var val;
-    var dex;
     for(var i in collection) {
-      val = collection[i];
-      dex = i;
-      newArr.push(iterator(val, dex, collection));
+      newArr.push(iterator(collection[i], i, collection));
       i++;
     }
      return newArr;
