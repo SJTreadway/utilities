@@ -213,11 +213,18 @@ var _ = { };
   // Return a function that can be called at most one time. Subsequent calls
   // should return the previously returned value.
   _.once = function(func) {
-    y = false;
-    if (!y){
-      y=true;
-      return func();
-    }
+      var flag = false;
+      var memo;
+      return function() {
+        if (flag) {
+          return memo;
+        } 
+        else{
+          flag = true;
+          memo = func.apply(this);
+          return memo;
+      }
+    };
 };
 
   // Memoize an expensive function by storing its results. You may assume
