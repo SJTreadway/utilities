@@ -93,7 +93,6 @@ var _ = { };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-
   };
 
 
@@ -127,6 +126,7 @@ var _ = { };
 
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName, args) {
+
   };
 
   // Reduces an array or object to a single value by repetitively calling
@@ -150,12 +150,37 @@ var _ = { };
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-
+    for (var i = 0; i < collection.length; i++){
+      if(collection[i]){
+        if (collection[i] === iterator(collection[i])){
+        return true;
+      } else if(collection[i] !== iterator(collection[i])){
+      return false;
+      } else if(iterator === undefined){
+        return collection[i];
+      }
+      return true;
+    }
+    else{
+        return false;
+      }
+    }
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
+    for (var i = 0; i < collection.length; i++){
+      if(iterator === undefined) {
+        return function(){
+          return x+2;
+        };
+        return iterator(collection[i]);
+      }
+      if(iterator(collection[i])){
+        return collection[i];
+      }
+    }
   };
 
 
@@ -169,6 +194,9 @@ var _ = { };
   // Extend a given object with all the properties of the passed in
   // object(s).
   _.extend = function(obj) {
+    for(var i in obj){
+
+    }
   };
 
   // Like extend, but doesn't ever overwrite a key that already
@@ -185,12 +213,12 @@ var _ = { };
   // Return a function that can be called at most one time. Subsequent calls
   // should return the previously returned value.
   _.once = function(func) {
-    var y = false;
-    return function() {
-      y = true;
+    y = false;
+    if (!y){
+      y=true;
       return func();
     }
-  };
+};
 
   // Memoize an expensive function by storing its results. You may assume
   // that the function takes only one argument and that it is a primitive.
@@ -209,8 +237,8 @@ var _ = { };
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
       return function() {
-        setTimeout(func(), wait, a, b);
-      }
+        setTimeout(func, wait, a, b);
+      };
     };
 
 
