@@ -62,26 +62,33 @@ var _ = { };
   // is not present in the array.
   _.indexOf = function(array, target){
       for (var i = 0; i < array.length; i++) {
-          return array.indexOf(target);
+        if (array[i]===target){
+          return i;
+        }
       }
+      return -1;
   };
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, iterator) {
-    var even = [];
-    var odd = [];
-    for (var i = 0; i < collection.length; i++) {
-      if (collection[i] % iterator === 0 && iterator % 2 === 0 && iterator !== 0) {
-        even.push(collection[i]);
-      } else if(collection[i] % iterator === 0 && iterator % 3 === 0 && iterator !== 0) {
-        odd.push(collection[i]);
+    var nums = [];
+    for(var i = 0; i < collection.length; i++){
+      if(iterator(collection[i])){
+        nums.push(collection[i]);
       }
     }
-    return [even, odd];
+    return nums;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, iterator) {
+    var nums = [];
+    for(var i = 0; i < collection.length; i++){
+      if(!iterator(collection[i])){
+        nums.push(collection[i]);
+      }
+    }
+    return nums;
   };
 
   // Produce a duplicate-free version of the array.
@@ -92,6 +99,11 @@ var _ = { };
 
   // Return the results of applying an iterator to each element.
   _.map = function(array, iterator) {
+    var newArray = [];
+    for (var i = 0; i < array.length; i++){
+      newArray.push(iterator(array[i]));
+    }
+    return newArray;
   };
 
   // Takes an array of objects and returns and array of the values of
