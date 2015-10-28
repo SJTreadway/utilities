@@ -133,15 +133,30 @@ var _ = { };
 
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName, args) {
-
-  };
+    var newList = [];
+      for(var i = 0; i < list.length; i++) {
+        if(typeof methodName === 'string'){
+            newList.push(list[i][methodName](args));
+        } else {
+            newList.push(methodName.apply(list[i], args));
+        }
+      }
+       return newList;
+  }
 
   // Reduces an array or object to a single value by repetitively calling
   // iterator(previousValue, item) for each item. previousValue should be
   // the return value of the previous iterator call.
   _.reduce = function(collection, iterator, initialValue) {
-  };
-
+    var newCollect;
+    if(initialValue === undefined) {
+      initialValue = 0;
+    }
+    for(var i in collection){
+        newCollect = iterator(collection[i], collection[i]) + initialValue;
+    }
+    return newCollect;
+  }
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
     for (var i in collection) {
@@ -250,9 +265,7 @@ var _ = { };
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-      return function() {
-        setTimeout(func, wait, a, b);
-      };
+        setTimeout(func, wait);
     };
 
 
@@ -274,6 +287,11 @@ var _ = { };
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var newArray = [];
+      for(var i = 0; i < arr.length; i++){
+          newArray.push(arr1[i] + ',' + arr2[i])
+      }
+      return newArray;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
