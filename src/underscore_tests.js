@@ -173,18 +173,8 @@ var _ = { };
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     for (var i = 0; i < collection.length; i++){
-      if(collection[i]){
-        if (collection[i] === iterator(collection[i])){
-        return true;
-      } else if(collection[i] !== iterator(collection[i])){
-      return false;
-      } else if(iterator === undefined){
-        return collection[i];
-      }
-      return true;
-    }
-    else{
-        return false;
+      if(iterator(collection[i])){
+        return iterator(collection[i]);
       }
     }
   };
@@ -264,9 +254,18 @@ var _ = { };
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
-  _.delay = function(func, wait) {
-        setTimeout(func, wait);
-    };
+  _.delay = function(func, wait){
+    var arr = [];
+    for(var i in arguments) {
+        if(i > 1) {
+        arr.push(arguments[i]);
+        }
+        i++;
+    }
+    return setTimeout(function () { 
+        return func.apply(null, arr); 
+    }, wait);
+}
 
 
 
