@@ -172,9 +172,16 @@ var _ = { };
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
+    if(iterator === undefined){
+        return true;
+      }
     for (var i = 0; i < collection.length; i++){
       if(iterator(collection[i])){
-        return iterator(collection[i]);
+        return true;
+      } else if(!iterator(collection[i])){
+        return false;
+      } else if(!collection[i]){
+        return false;
       }
     }
   };
@@ -182,15 +189,16 @@ var _ = { };
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    for (var i = 0; i < collection.length; i++){
-      if(iterator === undefined) {
-        return function(){
-          return x+2;
-        };
-        return iterator(collection[i]);
+    if(iterator === undefined){
+        return true;
       }
+    for (var i = 0; i < collection.length; i++){
       if(iterator(collection[i])){
-        return collection[i];
+        return true;
+      } else if(!iterator(collection[i])){
+        return false;
+      } else if(!collection[i]){
+        return false;
       }
     }
   };
@@ -271,6 +279,10 @@ var _ = { };
 
   // Shuffle an array.
   _.shuffle = function(array) {
+    var random = array.map(function(num){
+        return Math.floor(Math.random(num) * array.length);
+    });
+    return random;
   };
 
   // Sort the object's values by a criterion produced by an iterator.
@@ -287,8 +299,8 @@ var _ = { };
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
     var newArray = [];
-      for(var i = 0; i < arr.length; i++){
-          newArray.push(arr1[i] + ',' + arr2[i])
+      for(var i = 0; i < arguments.length; i++){
+          newArray.push(arguments[i])
       }
       return newArray;
   };
@@ -296,6 +308,7 @@ var _ = { };
   // Takes a multidimensional array and converts it to a one-dimensional array.
   // The new array should contain all elements of the multidimensional array.
   _.flatten = function(nestedArray, result) {
+      
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
@@ -306,6 +319,9 @@ var _ = { };
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    for(var i = 0; i < array.length; i++){
+
+    }
   };
 
 }).call(this);
