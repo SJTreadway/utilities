@@ -172,33 +172,13 @@ var _ = { };
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    var getValue = function(i) { return i; };
-    var iterator = iterator || getValue;
-    if(collection === []){
-      return true;
+    
     };
-    for(var key in collection){
-      if(!Boolean(iterator(collection[key]))){
-        return false;
-      };
-    }
-  return true;
-  };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    var getValue = function(i) { return i; };
-    var iterator = iterator || getValue;
-    if(collection === []){
-      return true;
-    };
-    for(var key in collection){
-      if(Boolean(iterator(collection[key]))){
-        return true;
-      };
-    }
-  return false;
+
   };
 
 
