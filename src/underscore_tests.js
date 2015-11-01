@@ -172,35 +172,33 @@ var _ = { };
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    if(iterator === undefined){
-        return true;
-      }
-    for (var i = 0; i < collection.length; i++){
-      if(iterator(collection[i])){
-        return true;
-      } else if(!iterator(collection[i])){
+    var getValue = function(i) { return i; };
+    var iterator = iterator || getValue;
+    if(collection === []){
+      return true;
+    };
+    for(var key in collection){
+      if(!Boolean(iterator(collection[key]))){
         return false;
-      } else if(!collection[i]){
-        return false;
-      }
+      };
     }
+  return true;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    if(iterator === undefined){
+    var getValue = function(i) { return i; };
+    var iterator = iterator || getValue;
+    if(collection === []){
+      return true;
+    };
+    for(var key in collection){
+      if(Boolean(iterator(collection[key]))){
         return true;
-      }
-    for (var i = 0; i < collection.length; i++){
-      if(iterator(collection[i])){
-        return true;
-      } else if(!iterator(collection[i])){
-        return false;
-      } else if(!collection[i]){
-        return false;
-      }
+      };
     }
+  return false;
   };
 
 
@@ -214,9 +212,10 @@ var _ = { };
   // Extend a given object with all the properties of the passed in
   // object(s).
   _.extend = function(obj) {
-    for(var i in obj){
+    
+    var newObj = Object.assign({}, obj);
+    return newObj;
 
-    }
   };
 
   // Like extend, but doesn't ever overwrite a key that already
@@ -273,7 +272,7 @@ var _ = { };
     return setTimeout(function () { 
         return func.apply(null, arr); 
     }, wait);
-}
+};
 
 
 
@@ -290,6 +289,7 @@ var _ = { };
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+    
   };
 
   // Zip together two or more arrays with elements of the same index
@@ -299,17 +299,28 @@ var _ = { };
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
     var newArray = [];
+    console.log(arguments);
       for(var i = 0; i < arguments.length; i++){
-          newArray.push(arguments[i])
+          newArray.push(arguments[0][i]);
+          newArray.push(arguments[1][i]);
+          console.log(newArray);
       }
-      return newArray;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
   // The new array should contain all elements of the multidimensional array.
-  _.flatten = function(nestedArray, result) {
-      
-  };
+  _.flatten = function flat(nestedArray, result) {
+    var store;
+      result = [].concat.apply([], nestedArray);
+      for (var i = 0; i < result.length; i++) {
+          if (Array.isArray(result[i])) {
+              store = parseInt(result[i].join());
+          }
+      }
+      result.pop();
+      result.push(store);
+      return result;
+}
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
@@ -319,9 +330,6 @@ var _ = { };
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
-    for(var i = 0; i < array.length; i++){
-
-    }
   };
 
 }).call(this);
